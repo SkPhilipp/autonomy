@@ -70,6 +70,7 @@ Additional Guidelines:
 - Write clear commit messages
 - Test changes thoroughly before pushing
 - Update documentation when making changes
+- Always update documentation when modifying functionality or adding new features
 
 # Capabilities
 
