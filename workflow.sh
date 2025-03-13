@@ -105,20 +105,6 @@ commit_and_push() {
     commit_push_and_monitor "$1"
 }
 
-# Function to monitor CI/CD (deprecated)
-monitor_ci() {
-    echo "Warning: monitor-ci is deprecated. Use commit-push-and-monitor instead."
-    local branch_name=$(git rev-parse --abbrev-ref HEAD)
-    local pr_number=$(gh pr view --json number --jq .number)
-    
-    if [ -z "$pr_number" ]; then
-        echo "Error: No PR found for current branch"
-        exit 1
-    fi
-    
-    gh pr checks "$pr_number" --watch
-}
-
 # Function to complete work on an issue
 complete_issue() {
     local branch_name=$(git rev-parse --abbrev-ref HEAD)
@@ -224,9 +210,6 @@ case "$1" in
         ;;
     "commit-and-push")
         commit_push_and_monitor "$2"
-        ;;
-    "monitor-ci")
-        monitor_ci
         ;;
     "complete-issue")
         complete_issue
