@@ -1,6 +1,14 @@
 # Workflow
 
-When instructed "next":
+When instructed "local work":
+
+1. Commit and push changes:
+   ```bash
+   ./workflow.sh commit-and-push "<a short conventional commit message>"
+   ```
+
+When instructed "next issue":
+
 1. List open issues and select one:
    ```bash
    ./workflow.sh list-issues
@@ -20,7 +28,7 @@ When instructed "next":
    - Test the changes locally
    - Commit and push changes:
      ```bash
-     ./workflow.sh commit-and-push <issue-number> "your commit message"
+     ./workflow.sh commit-and-push <issue-number> "<a short conventional commit message>"
      ```
 
 4. Monitor CI/CD:
@@ -53,7 +61,6 @@ Additional Guidelines:
 - Prioritize issues based on:
   - Issue age (older issues first)
   - Issue priority labels
-- Keep commit messages under 72 characters
 - Keep PRs focused and small
 
 # Capabilities
