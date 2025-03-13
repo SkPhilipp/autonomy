@@ -1,0 +1,74 @@
+# Workflow
+
+When instructed "next":
+1. List open issues and select one:
+   ```bash
+   ./workflow.sh list-issues
+   ```
+   Select the first unblocked issue (lowest number)
+
+2. Start work on the issue:
+   ```bash
+   ./workflow.sh start-issue <issue-number>
+   ```
+   This creates a branch, pushes it, and creates a draft PR
+
+3. Work on the issue:
+   - Read the issue description and comments
+   - Check for any linked PRs or related issues
+   - Implement the required changes
+   - Test the changes locally
+   - Commit and push changes:
+     ```bash
+     ./workflow.sh commit-and-push <issue-number> "your commit message"
+     ```
+
+4. Monitor CI/CD:
+   ```bash
+   ./workflow.sh monitor-ci <pr-number>
+   ```
+
+5. Once all checks pass:
+   ```bash
+   ./workflow.sh complete-issue <pr-number> <issue-number>
+   ```
+   This undrafts the PR, merges it, and closes the issue
+
+Error Handling:
+- During development (steps 1-4):
+  - Debug and fix issues as they arise
+  - Continue development until the issue is resolved
+  - No need to reset or retry unless completely stuck
+
+- When completely stuck (unable to proceed):
+  1. Make an internal note of the blocking issue and attempted solutions
+  2. Git reset to the last successful commit
+  3. Analyze the blocking issue and determine a different approach
+  4. Retry with the new approach
+  5. If stuck 3 times with different approaches:
+     - Mark the issue as "blocked" with appropriate labels
+     - Skip the issue and move to the next one
+
+Additional Guidelines:
+- Prioritize issues based on:
+  - Issue age (older issues first)
+  - Issue priority labels
+- Keep commit messages under 72 characters
+- Keep PRs focused and small
+
+# Capabilities
+
+## Web Browsing
+
+You are always allowed to browse the web for more information.
+To facilitate this, use the capability script:
+```bash
+./capability.sh browse <url>
+```
+
+## Searching
+
+To search the web, use the capability script:
+```bash
+./capability.sh search <query>
+```
