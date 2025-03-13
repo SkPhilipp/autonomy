@@ -87,3 +87,14 @@ To search the web, use the capability script:
 ```bash
 ./capability.sh search <query>
 ```
+
+## Screenshotting
+
+To take a screenshot of a webpage, use the capability script:
+```bash
+./capability.sh screenshot <url> [output-path]
+```
+- `url`: The URL of the webpage to screenshot
+- `output-path`: (Optional) The path where the screenshot should be saved. Defaults to `screenshot.png`
+
+The screenshot will be taken using Puppeteer in headless mode, capturing the full page content.
