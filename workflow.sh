@@ -114,11 +114,14 @@ complete_issue() {
         exit 1
     fi
     
-    # Create PR
-    gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name"
+    # Get PR number if it exists, create one if it doesn't
+    local pr_number=$(gh pr view --json number --jq .number 2>/dev/null || echo "")
     
-    # Get PR number from the newly created PR
-    local pr_number=$(gh pr view --json number --jq .number)
+    if [ -z "$pr_number" ]; then
+        # Create PR if it doesn't exist
+        gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name"
+        pr_number=$(gh pr view --json number --jq .number)
+    fi
     
     # Monitor CI/CD
     gh pr checks "$pr_number" --watch
