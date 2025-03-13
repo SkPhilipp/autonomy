@@ -19,7 +19,7 @@ When instructed "next issue":
    ```bash
    ./workflow.sh start-issue <issue-number>
    ```
-   This creates a branch, pushes it, and creates a draft PR
+   This creates a branch and pushes it
 
 3. Work on the issue:
    - Read the issue description and comments
@@ -31,16 +31,11 @@ When instructed "next issue":
      ./workflow.sh commit-and-push "<a short conventional commit message>"
      ```
 
-4. Monitor CI/CD:
-   ```bash
-   ./workflow.sh monitor-ci <pr-number>
-   ```
-
-5. Once all checks pass:
+4. Complete the issue:
    ```bash
    ./workflow.sh complete-issue <pr-number> <issue-number>
    ```
-   This undrafts the PR, merges it, and closes the issue
+   This creates a PR, monitors CI/CD, and merges when ready
 
 Error Handling:
 - During development (steps 1-4):
