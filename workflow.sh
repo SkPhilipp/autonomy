@@ -123,9 +123,9 @@ complete_issue() {
     # Monitor CI/CD
     gh pr checks "$pr_number" --watch
     
-    # TODO: Uncomment this when dry-run a few times.
-    # gh pr merge "$pr_number" --merge
-    # git pull
+    # Merge PR and pull changes
+    gh pr merge "$pr_number" --merge
+    git pull
 
     git checkout master
 }
