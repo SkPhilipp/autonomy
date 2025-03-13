@@ -103,13 +103,16 @@ monitor_ci() {
 
 # Function to complete work on an issue
 complete_issue() {
-    if [ -z "$1" ]; then
-        echo "Usage: ./workflow.sh complete-issue <issue-number>"
+    local branch_name=$(git rev-parse --abbrev-ref HEAD)
+    
+    # Extract issue number from branch name (fix/issue-<number> or feature/issue-<number>)
+    local issue_number=$(echo "$branch_name" | sed -n 's/.*issue-\([0-9]*\)/\1/p')
+    
+    if [ -z "$issue_number" ]; then
+        echo "Error: Could not extract issue number from branch name '$branch_name'"
+        echo "Branch name should be in format: fix/issue-<number> or feature/issue-<number>"
         exit 1
     fi
-    
-    local issue_number=$1
-    local branch_name=$(git rev-parse --abbrev-ref HEAD)
     
     # Create PR
     gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name"
@@ -179,7 +182,7 @@ if [ $# -eq 0 ]; then
     echo "  ./workflow.sh prepare-commit           # Show changes and prepare commit message"
     echo "  ./workflow.sh commit-and-push <message> # Commit and push changes"
     echo "  ./workflow.sh monitor-ci               # Monitor CI/CD for PR"
-    echo "  ./workflow.sh complete-issue <issue>   # Complete work on an issue"
+    echo "  ./workflow.sh complete-issue           # Complete work on an issue"
     echo "  ./workflow.sh add-failure-status \"<message>\" # Add failure status to PR"
     exit 1
 fi
@@ -202,7 +205,7 @@ case "$1" in
         monitor_ci
         ;;
     "complete-issue")
-        complete_issue "$2"
+        complete_issue
         ;;
     "add-failure-status")
         add_failure_status "$2"
