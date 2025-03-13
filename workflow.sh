@@ -45,7 +45,6 @@ start_issue() {
     local branch_name="${branch_type}/issue-${issue_number}"
     git checkout -b "$branch_name"
     git push -u origin "$branch_name"
-    gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name" --draft
 }
 
 # Function to push changes
@@ -85,13 +84,38 @@ complete_issue() {
     local issue_number=$2
     local branch_name=$(git rev-parse --abbrev-ref HEAD)
     
-    gh pr edit "$pr_number" --draft=false
-
+    # Create PR
+    gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name"
+    
+    # Monitor CI/CD
+    gh pr checks "$pr_number" --watch
+    
     # TODO: Uncomment this when dry-run a few times.
     # gh pr merge "$pr_number" --merge
     # git pull
 
     git checkout master
+}
+
+# Function to add failure status to PR
+add_failure_status() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: ./workflow.sh add-failure-status <pr-number> \"<failure-message>\""
+        exit 1
+    fi
+    
+    local pr_number=$1
+    local failure_message="$2"
+    local timestamp=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+    
+    local comment="## Failure Status Report
+**Timestamp:** $timestamp
+**Status:** Blocked
+
+### Attempted Approach
+$failure_message"
+
+    gh pr comment "$pr_number" --body "$comment"
 }
 
 # Show usage if no command provided
@@ -102,6 +126,7 @@ if [ $# -eq 0 ]; then
     echo "  ./workflow.sh commit-and-push <message> # Commit and push changes"
     echo "  ./workflow.sh monitor-ci <number>      # Monitor CI/CD for PR"
     echo "  ./workflow.sh complete-issue <pr> <issue> # Complete work on an issue"
+    echo "  ./workflow.sh add-failure-status <pr> \"<message>\" # Add failure status to PR"
     exit 1
 fi
 
@@ -121,6 +146,9 @@ case "$1" in
         ;;
     "complete-issue")
         complete_issue "$2" "$3"
+        ;;
+    "add-failure-status")
+        add_failure_status "$2" "$3"
         ;;
     *)
         echo "Unknown command: $1"
