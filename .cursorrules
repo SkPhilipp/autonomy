@@ -54,6 +54,7 @@ Error Handling:
 
 Additional Guidelines:
 - Do not directly run `gh` commands.
+- Run `git` commands that print any data through `cat`.
 - Prioritize issues based on:
   - Issue age (older issues first)
   - Issue priority labels
