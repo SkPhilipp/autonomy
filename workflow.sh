@@ -173,11 +173,11 @@ $failure_message"
 prepare_commit() {
     echo "Current changes:"
     echo "---------------"
-    git status --short
+    git status --short | cat
     
     echo -e "\nDetailed changes:"
     echo "----------------"
-    git diff
+    git diff | cat
     
     echo -e "\nSuggested commit message format:"
     echo "type(scope): description"
