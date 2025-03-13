@@ -94,6 +94,27 @@ complete_issue() {
     git checkout master
 }
 
+# Function to add failure status to PR
+add_failure_status() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: ./workflow.sh add-failure-status <pr-number> \"<failure-message>\""
+        exit 1
+    fi
+    
+    local pr_number=$1
+    local failure_message="$2"
+    local timestamp=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+    
+    local comment="## Failure Status Report
+**Timestamp:** $timestamp
+**Status:** Blocked
+
+### Attempted Approach
+$failure_message"
+
+    gh pr comment "$pr_number" --body "$comment"
+}
+
 # Show usage if no command provided
 if [ $# -eq 0 ]; then
     echo "Usage:"
@@ -102,6 +123,7 @@ if [ $# -eq 0 ]; then
     echo "  ./workflow.sh commit-and-push <message> # Commit and push changes"
     echo "  ./workflow.sh monitor-ci <number>      # Monitor CI/CD for PR"
     echo "  ./workflow.sh complete-issue <pr> <issue> # Complete work on an issue"
+    echo "  ./workflow.sh add-failure-status <pr> \"<message>\" # Add failure status to PR"
     exit 1
 fi
 
@@ -121,6 +143,9 @@ case "$1" in
         ;;
     "complete-issue")
         complete_issue "$2" "$3"
+        ;;
+    "add-failure-status")
+        add_failure_status "$2" "$3"
         ;;
     *)
         echo "Unknown command: $1"

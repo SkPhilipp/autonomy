@@ -28,7 +28,7 @@ When instructed "next issue":
    - Test the changes locally
    - Commit and push changes:
      ```bash
-     ./workflow.sh commit-and-push <issue-number> "<a short conventional commit message>"
+     ./workflow.sh commit-and-push "<a short conventional commit message>"
      ```
 
 4. Monitor CI/CD:
