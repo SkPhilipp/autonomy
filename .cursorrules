@@ -60,6 +60,52 @@ Additional Guidelines:
   - Issue priority labels
 - Keep PRs focused and small
 
+# Available Commands
+
+The following commands are available in `workflow.sh`:
+
+1. List open issues:
+   ```bash
+   ./workflow.sh list-issues
+   ```
+   Shows all open issues, sorted by priority and age.
+
+2. Start work on an issue:
+   ```bash
+   ./workflow.sh start-issue <issue-number>
+   ```
+   Creates a new branch and pushes it to origin.
+
+3. Prepare commit:
+   ```bash
+   ./workflow.sh prepare-commit
+   ```
+   Shows current changes and helps prepare a commit message.
+
+4. Commit and push changes:
+   ```bash
+   ./workflow.sh commit-and-push "<message>"
+   ```
+   Commits and pushes changes to the current branch.
+
+5. Monitor CI/CD:
+   ```bash
+   ./workflow.sh monitor-ci <pr-number>
+   ```
+   Watches CI/CD checks for a PR.
+
+6. Complete work on an issue:
+   ```bash
+   ./workflow.sh complete-issue <pr-number> <issue-number>
+   ```
+   Creates a PR, monitors CI/CD, and merges when ready.
+
+7. Add failure status:
+   ```bash
+   ./workflow.sh add-failure-status <pr-number> "<message>"
+   ```
+   Adds a failure status report to a PR.
+
 # Capabilities
 
 ## Web Browsing
