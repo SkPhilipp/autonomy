@@ -23,9 +23,9 @@ gh auth status >/dev/null 2>&1 || {
 
 # Function to list open issues
 list_issues() {
-    # Priority: bug > documentation > enhancement > others
-    gh issue list --state open --json number,title,labels --jq '
-        .[] | 
+    # Get open issues with basic information
+    gh issue list --state open --json number,title,labels,createdAt --limit 100 | \
+    jq -r '.[] | 
         select(.labels[].name != "blocked" and .labels[].name != "needs discussion") |
         {
             number: .number,
@@ -36,10 +36,12 @@ list_issues() {
                 elif (.labels[].name == "enhancement") then 3
                 else 4
                 end
-            )
-        } | [.number, .title, .priority] | @tsv' | 
-    sort -t$'\t' -k3,3n -k1,1n | 
-    cut -f1,2
+            ),
+            created: .createdAt
+        } | [.number, .title, .priority, .created] | @tsv' | \
+    sort -t$'\t' -k3,3n -k4,4 | \
+    cut -f1,2 | \
+    sed 's/\t/ - /'
 }
 
 # Function to start work on an issue
