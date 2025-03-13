@@ -58,6 +58,11 @@ start_issue() {
         branch_type="feature"
     fi
     
+    # Reset to clean state from origin/master
+    git fetch origin
+    git reset --hard origin/master
+    git clean -fd
+    
     local branch_name="${branch_type}/issue-${issue_number}"
     git checkout -b "$branch_name"
     git push -u origin "$branch_name"
