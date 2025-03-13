@@ -6,6 +6,10 @@ When instructed "local work":
    ```bash
    ./workflow.sh commit-and-push "<a short conventional commit message>"
    ```
+   - Must follow conventional commit format: type(scope): description
+   - Types: feat, fix, docs, style, refactor, test, chore
+   - Scope should match the area being changed
+   - Description should be clear and concise
 
 When instructed "next issue":
 
@@ -15,7 +19,7 @@ When instructed "next issue":
    ```
    Select the first unblocked issue (lowest number)
 
-2. Start work on the issue:
+2. Start work on an issue:
    ```bash
    ./workflow.sh start-issue <issue-number>
    ```
@@ -26,6 +30,10 @@ When instructed "next issue":
    - Check for any linked PRs or related issues
    - Implement the required changes
    - Test the changes locally
+   - Review changes and prepare commit:
+     ```bash
+     ./workflow.sh prepare-commit
+     ```
    - Commit and push changes:
      ```bash
      ./workflow.sh commit-and-push "<a short conventional commit message>"
@@ -53,12 +61,15 @@ Error Handling:
      - Skip the issue and move to the next one
 
 Additional Guidelines:
-- Do not directly run `gh` commands.
-- Run `git` commands that print any data through `cat`.
+- Do not directly run `gh` commands
+- Run `git` commands that print any data through `cat`
 - Prioritize issues based on:
   - Issue age (older issues first)
   - Issue priority labels
 - Keep PRs focused and small
+- Write clear commit messages
+- Test changes thoroughly before pushing
+- Update documentation when making changes
 
 # Available Commands
 
