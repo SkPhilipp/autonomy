@@ -141,11 +141,28 @@ $failure_message"
     gh pr comment "$pr_number" --body "$comment"
 }
 
+# Function to prepare commit
+prepare_commit() {
+    echo "Current changes:"
+    echo "---------------"
+    git status --short
+    
+    echo -e "\nDetailed changes:"
+    echo "----------------"
+    git diff
+    
+    echo -e "\nSuggested commit message format:"
+    echo "type(scope): description"
+    echo "Types: feat, fix, docs, style, refactor, test, chore"
+    echo "Example: feat(workflow): add prepare-commit command"
+}
+
 # Show usage if no command provided
 if [ $# -eq 0 ]; then
     echo "Usage:"
     echo "  ./workflow.sh list-issues              # List open issues"
     echo "  ./workflow.sh start-issue <number>     # Start work on an issue"
+    echo "  ./workflow.sh prepare-commit           # Show changes and prepare commit message"
     echo "  ./workflow.sh commit-and-push <message> # Commit and push changes"
     echo "  ./workflow.sh monitor-ci <number>      # Monitor CI/CD for PR"
     echo "  ./workflow.sh complete-issue <pr> <issue> # Complete work on an issue"
@@ -160,6 +177,9 @@ case "$1" in
         ;;
     "start-issue")
         start_issue "$2"
+        ;;
+    "prepare-commit")
+        prepare_commit
         ;;
     "commit-and-push")
         commit_and_push "$2"
