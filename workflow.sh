@@ -45,7 +45,6 @@ start_issue() {
     local branch_name="${branch_type}/issue-${issue_number}"
     git checkout -b "$branch_name"
     git push -u origin "$branch_name"
-    gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name" --draft
 }
 
 # Function to push changes
@@ -85,8 +84,12 @@ complete_issue() {
     local issue_number=$2
     local branch_name=$(git rev-parse --abbrev-ref HEAD)
     
-    gh pr edit "$pr_number" --draft=false
-
+    # Create PR
+    gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name"
+    
+    # Monitor CI/CD
+    gh pr checks "$pr_number" --watch
+    
     # TODO: Uncomment this when dry-run a few times.
     # gh pr merge "$pr_number" --merge
     # git pull
