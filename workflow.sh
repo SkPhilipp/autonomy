@@ -26,19 +26,22 @@ list_issues() {
     # Get open issues with basic information
     gh issue list --state open --json number,title,labels,createdAt --limit 100 | \
     jq -r '.[] | 
-        select(.labels[].name != "blocked" and .labels[].name != "needs discussion") |
         {
             number: .number,
             title: .title,
             priority: (
-                if (.labels[].name == "bug") then 1
-                elif (.labels[].name == "documentation") then 2
-                elif (.labels[].name == "enhancement") then 3
+                if (.labels | map(.name) | contains(["bug"])) then 1
+                elif (.labels | map(.name) | contains(["documentation"])) then 2
+                elif (.labels | map(.name) | contains(["enhancement"])) then 3
                 else 4
                 end
             ),
-            created: .createdAt
-        } | [.number, .title, .priority, .created] | @tsv' | \
+            created: .createdAt,
+            is_blocked: (.labels | map(.name) | contains(["blocked"])),
+            needs_discussion: (.labels | map(.name) | contains(["needs discussion"]))
+        } | 
+        select(.is_blocked == false and .needs_discussion == false) |
+        [.number, .title, .priority, .created] | @tsv' | \
     sort -t$'\t' -k3,3n -k4,4 | \
     cut -f1,2 | \
     sed 's/\t/ - /'

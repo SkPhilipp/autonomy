@@ -53,6 +53,7 @@ Error Handling:
      - Skip the issue and move to the next one
 
 Additional Guidelines:
+- Do not directly run `gh` commands.
 - Prioritize issues based on:
   - Issue age (older issues first)
   - Issue priority labels
