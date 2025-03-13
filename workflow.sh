@@ -90,28 +90,32 @@ commit_and_push() {
 
 # Function to monitor CI/CD
 monitor_ci() {
-    if [ -z "$1" ]; then
-        echo "Usage: ./workflow.sh monitor-ci <pr-number>"
+    local branch_name=$(git rev-parse --abbrev-ref HEAD)
+    local pr_number=$(gh pr view --json number --jq .number)
+    
+    if [ -z "$pr_number" ]; then
+        echo "Error: No PR found for current branch"
         exit 1
     fi
     
-    local pr_number=$1
     gh pr checks "$pr_number" --watch
 }
 
 # Function to complete work on an issue
 complete_issue() {
-    if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: ./workflow.sh complete-issue <pr-number> <issue-number>"
+    if [ -z "$1" ]; then
+        echo "Usage: ./workflow.sh complete-issue <issue-number>"
         exit 1
     fi
     
-    local pr_number=$1
-    local issue_number=$2
+    local issue_number=$1
     local branch_name=$(git rev-parse --abbrev-ref HEAD)
     
     # Create PR
     gh pr create --title "Fix #${issue_number}" --body "Closes #${issue_number}" --head "$branch_name"
+    
+    # Get PR number from the newly created PR
+    local pr_number=$(gh pr view --json number --jq .number)
     
     # Monitor CI/CD
     gh pr checks "$pr_number" --watch
@@ -125,13 +129,20 @@ complete_issue() {
 
 # Function to add failure status to PR
 add_failure_status() {
-    if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "Usage: ./workflow.sh add-failure-status <pr-number> \"<failure-message>\""
+    if [ -z "$1" ]; then
+        echo "Usage: ./workflow.sh add-failure-status \"<failure-message>\""
         exit 1
     fi
     
-    local pr_number=$1
-    local failure_message="$2"
+    local failure_message="$1"
+    local branch_name=$(git rev-parse --abbrev-ref HEAD)
+    local pr_number=$(gh pr view --json number --jq .number)
+    
+    if [ -z "$pr_number" ]; then
+        echo "Error: No PR found for current branch"
+        exit 1
+    fi
+    
     local timestamp=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
     
     local comment="## Failure Status Report
@@ -167,9 +178,9 @@ if [ $# -eq 0 ]; then
     echo "  ./workflow.sh start-issue <number>     # Start work on an issue"
     echo "  ./workflow.sh prepare-commit           # Show changes and prepare commit message"
     echo "  ./workflow.sh commit-and-push <message> # Commit and push changes"
-    echo "  ./workflow.sh monitor-ci <number>      # Monitor CI/CD for PR"
-    echo "  ./workflow.sh complete-issue <pr> <issue> # Complete work on an issue"
-    echo "  ./workflow.sh add-failure-status <pr> \"<message>\" # Add failure status to PR"
+    echo "  ./workflow.sh monitor-ci               # Monitor CI/CD for PR"
+    echo "  ./workflow.sh complete-issue <issue>   # Complete work on an issue"
+    echo "  ./workflow.sh add-failure-status \"<message>\" # Add failure status to PR"
     exit 1
 fi
 
@@ -188,13 +199,13 @@ case "$1" in
         commit_and_push "$2"
         ;;
     "monitor-ci")
-        monitor_ci "$2"
+        monitor_ci
         ;;
     "complete-issue")
-        complete_issue "$2" "$3"
+        complete_issue "$2"
         ;;
     "add-failure-status")
-        add_failure_status "$2" "$3"
+        add_failure_status "$2"
         ;;
     *)
         echo "Unknown command: $1"
