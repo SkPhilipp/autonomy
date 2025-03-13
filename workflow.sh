@@ -73,8 +73,8 @@ start_issue() {
     git push -u origin "$branch_name"
 }
 
-# Function to push changes
-commit_and_push() {
+# Function to commit, push and monitor CI/CD
+commit_push_and_monitor() {
     if [ -z "$1" ]; then
         echo "Usage: ./workflow.sh commit-and-push <commit-message>"
         exit 1
@@ -83,13 +83,31 @@ commit_and_push() {
     local commit_message="$1"
     local branch_name=$(git rev-parse --abbrev-ref HEAD)
     
+    # Commit and push changes
     git add .
     git commit -m "$commit_message"
     git push -u origin "$branch_name"
+    
+    # Get PR number if it exists
+    local pr_number=$(gh pr view --json number --jq .number 2>/dev/null || echo "")
+    
+    if [ -n "$pr_number" ]; then
+        echo "Monitoring CI/CD for PR #$pr_number..."
+        gh pr checks "$pr_number" --watch
+    else
+        echo "No PR found for current branch, skipping CI/CD monitoring"
+    fi
 }
 
-# Function to monitor CI/CD
+# Function to push changes (deprecated)
+commit_and_push() {
+    echo "Warning: commit-and-push is deprecated. Use commit-push-and-monitor instead."
+    commit_push_and_monitor "$1"
+}
+
+# Function to monitor CI/CD (deprecated)
 monitor_ci() {
+    echo "Warning: monitor-ci is deprecated. Use commit-push-and-monitor instead."
     local branch_name=$(git rev-parse --abbrev-ref HEAD)
     local pr_number=$(gh pr view --json number --jq .number)
     
@@ -187,8 +205,7 @@ if [ $# -eq 0 ]; then
     echo "  ./workflow.sh list-issues              # List open issues"
     echo "  ./workflow.sh start-issue <number>     # Start work on an issue"
     echo "  ./workflow.sh prepare-commit           # Show changes and prepare commit message"
-    echo "  ./workflow.sh commit-and-push <message> # Commit and push changes"
-    echo "  ./workflow.sh monitor-ci               # Monitor CI/CD for PR"
+    echo "  ./workflow.sh commit-and-push <message> # Commit, push changes and monitor CI/CD"
     echo "  ./workflow.sh complete-issue           # Complete work on an issue"
     echo "  ./workflow.sh add-failure-status \"<message>\" # Add failure status to PR"
     exit 1
@@ -206,7 +223,7 @@ case "$1" in
         prepare_commit
         ;;
     "commit-and-push")
-        commit_and_push "$2"
+        commit_push_and_monitor "$2"
         ;;
     "monitor-ci")
         monitor_ci
