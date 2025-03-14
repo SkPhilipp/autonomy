@@ -3,6 +3,9 @@
 # Exit on error
 set -e
 
+# Print commands as they are executed
+set -x
+
 # Function to check if a command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
