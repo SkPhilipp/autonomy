@@ -32,4 +32,14 @@ A workflow automation tool for managing GitHub issues and project tasks with int
 3. Authenticate with GitHub:
    ```bash
    gh auth login
-   ``` 
+   ```
+
+4. Add commands to PATH:
+   ```bash
+   # Add this to your ~/.bashrc or ~/.zshrc
+   export PATH="/path/to/autonomy:$PATH"
+   ```
+   Replace `/path/to/autonomy` with the actual path where you cloned the repository.
+   After adding this line, either:
+   - Start a new terminal session, or
+   - Run `source ~/.bashrc` (or `source ~/.zshrc`) to apply changes immediately 
