@@ -3,22 +3,22 @@
 When instructed "local work":
 1. - Prepare commit:
      ```bash
-     ./workflow.sh prepare-commit
+     workflow.sh prepare-commit
      ```
    - Commit and push:
      ```bash
-     ./workflow.sh commit-and-push "<a short conventional commit message>"
+     workflow.sh commit-and-push "<a short conventional commit message>"
      ```
 
 When instructed "next issue":
 1. List and select first unblocked issue:
    ```bash
-   ./workflow.sh list-issues
+   workflow.sh list-issues
    ```
 
 2. Start work:
    ```bash
-   ./workflow.sh start-issue <issue-number>
+   workflow.sh start-issue <issue-number>
    ```
 
 3. Work on issue:
@@ -27,16 +27,16 @@ When instructed "next issue":
    - Test locally
    - Prepare commit:
      ```bash
-     ./workflow.sh prepare-commit
+     workflow.sh prepare-commit
      ```
    - Commit and push:
      ```bash
-     ./workflow.sh commit-and-push "<a short conventional commit message>"
+     workflow.sh commit-and-push "<a short conventional commit message>"
      ```
 
 4. Complete issue:
    ```bash
-   ./workflow.sh complete-issue <pr-number> <issue-number>
+   workflow.sh complete-issue <pr-number> <issue-number>
    ```
 
 Error Handling:
@@ -61,19 +61,19 @@ Guidelines:
 You are always allowed to browse the web for more information.
 To facilitate this, use the capability script:
 ```bash
-./capability.sh browse <url>
+capability.sh browse <url>
 ```
 
 ## Searching
 To search the web, use the capability script:
 ```bash
-./capability.sh search <query>
+capability.sh search <query>
 ```
 
 ## Screenshotting
 To take a screenshot of a webpage, use the capability script:
 ```bash
-./capability.sh screenshot <url> [output-path]
+capability.sh screenshot <url> [output-path]
 ```
 - `url`: The URL of the webpage to screenshot
 - `output-path`: (Optional) The path where the screenshot should be saved. Defaults to `screenshot.png`
