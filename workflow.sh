@@ -55,6 +55,13 @@ start_issue() {
     fi
     
     local issue_number=$1
+    
+    # Get issue details
+    echo "Issue #${issue_number} details:"
+    echo "------------------------"
+    gh issue view "$issue_number" | cat
+    echo "------------------------"
+    
     local issue_title=$(gh issue view "$issue_number" --json title --jq .title)
     local branch_type="fix"
     
