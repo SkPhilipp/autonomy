@@ -13,7 +13,9 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger("workflow")
 
 class Workflow:
-    def __init__(self):
+    def __init__(self, working_dir):
+        self.working_dir = working_dir
+        
         # Check if gh CLI is installed
         if not self._command_exists("gh"):
             logger.error("GitHub CLI (gh) is not installed. Please install it first:")
@@ -44,6 +46,7 @@ class Workflow:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            check=True
+            check=True,
+            cwd=self.working_dir
         )
         return result.stdout.strip()

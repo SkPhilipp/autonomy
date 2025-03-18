@@ -7,7 +7,13 @@ This project is based on the [MCP Python SDK](https://github.com/modelcontextpro
 Add to Cursor via Cursor Settings -> MCP Servers:
 
 1. Add new MCP Server
-2. Command `uv --directory /{PATH_TO_REPO}/mcp-server-workflow run mcp run main.py`
+2. Command `uv --directory /{PATH_TO_REPO}/mcp-server-workflow run --env-file={PATH_TO_YOUR_PROJECT}/.env mcp run main.py`
+
+In the .env file, add the directory on which you wish to make changes via Git:
+
+```
+WORKFLOW_DIR={PATH_TO_YOUR_PROJECT}
+```
 
 Alternatively, run it locally with:
 
