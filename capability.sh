@@ -66,4 +66,4 @@ case "$1" in
         echo "Unknown command: $1"
         exit 1
         ;;
-esac 
+esac
