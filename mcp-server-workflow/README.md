@@ -26,27 +26,6 @@ This project integrates the following GitHub workflow commands as MCP tools:
 - `commit_and_push(commit_message)` - Commit, push changes and monitor CI/CD
 - `complete_issue()` - Complete work on an issue
 
-## Command Line Usage
-
-You can also use the workflow functionality directly from the command line:
-
-```bash
-# List open issues
-python workflow.py list-issues
-
-# Start work on an issue
-python workflow.py start-issue <issue-number>
-
-# Show changes and prepare commit message
-python workflow.py change-summary
-
-# Commit and push changes
-python workflow.py commit-and-push "<commit-message>"
-
-# Complete work on an issue
-python workflow.py complete-issue
-```
-
 ## Requirements
 
 - Python 3.12+

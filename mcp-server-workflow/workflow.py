@@ -12,7 +12,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("workflow")
 
-class GitHubWorkflow:
+class Workflow:
     def __init__(self):
         # Check if gh CLI is installed
         if not self._command_exists("gh"):
@@ -21,7 +21,7 @@ class GitHubWorkflow:
             sys.exit(1)
         
         try:
-            self._run_command(["gh", "auth", "status"], silent=True)
+            self.run(["gh", "auth", "status"], silent=True)
         except subprocess.CalledProcessError:
             logger.error("Please authenticate with GitHub first using: gh auth login")
             sys.exit(1)
@@ -34,7 +34,7 @@ class GitHubWorkflow:
             stderr=subprocess.PIPE
         ) == 0
     
-    def _run_command(self, cmd, silent=False):
+    def run(self, cmd, silent=False):
         """Run a command and return its output"""
         if not silent:
             logger.info(f"Running: {' '.join(cmd)}")
