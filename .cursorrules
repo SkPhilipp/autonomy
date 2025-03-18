@@ -1,43 +1,23 @@
 # Workflow
 
 When instructed "local work":
-1. - Prepare commit:
-     ```bash
-     workflow.sh prepare-commit
-     ```
-   - Commit and push:
-     ```bash
-     workflow.sh commit-and-push "<a short conventional commit message>"
-     ```
+1. Get a summary of current changes using `mcp__change_summary`
+
+2. Commit and push using `mcp__commit_and_push` with a short conventional commit message
 
 When instructed "next issue":
-1. List and select first unblocked issue:
-   ```bash
-   workflow.sh list-issues
-   ```
+1. List and select first unblocked issue using `mcp__list_issues`
 
-2. Start work:
-   ```bash
-   workflow.sh start-issue <issue-number>
-   ```
+2. Start work using `mcp__start_issue` with the selected issue number
 
 3. Work on issue:
    - Read issue and related content
    - Implement changes
    - Test locally
-   - Obtain a change summary:
-     ```bash
-     workflow.sh change-summary
-     ```
-   - Commit and push:
-     ```bash
-     workflow.sh commit-and-push "<a short conventional commit message>"
-     ```
+   - Get a summary of changes using `mcp__change_summary`
+   - Commit and push using `mcp__commit_and_push` with a short conventional commit message
 
-4. Complete issue:
-   ```bash
-   workflow.sh complete-issue <pr-number> <issue-number>
-   ```
+4. Complete issue using `mcp__complete_issue`
 
 Error Handling:
 - Debug and fix issues as they arise
@@ -54,6 +34,16 @@ Guidelines:
 - Keep PRs focused
 - Test thoroughly
 - Update docs for changes
+
+# Additional Tools
+
+The following tools are available for direct use:
+- `mcp__add`: Add two numbers
+- `mcp__list_issues`: List open issues sorted by priority and creation date
+- `mcp__start_issue`: Start work on an issue
+- `mcp__change_summary`: Show summary of current changes
+- `mcp__commit_and_push`: Commit, push changes and monitor CI/CD
+- `mcp__complete_issue`: Complete work on an issue
 
 # Capabilities
 
