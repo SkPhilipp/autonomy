@@ -25,9 +25,9 @@ When instructed "next issue":
    - Read issue and related content
    - Implement changes
    - Test locally
-   - Prepare commit:
+   - Obtain a change summary:
      ```bash
-     workflow.sh prepare-commit
+     workflow.sh change-summary
      ```
    - Commit and push:
      ```bash

@@ -42,4 +42,4 @@ A workflow automation tool for managing GitHub issues and project tasks with int
    Replace `/path/to/autonomy` with the actual path where you cloned the repository.
    After adding this line, either:
    - Start a new terminal session, or
-   - Run `source ~/.bashrc` (or `source ~/.zshrc`) to apply changes immediately 
+   - Run `source ~/.bashrc` (or `source ~/.zshrc`) to apply changes immediately

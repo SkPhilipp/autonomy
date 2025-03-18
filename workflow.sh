@@ -109,12 +109,6 @@ commit_push_and_monitor() {
     fi
 }
 
-# Function to push changes (deprecated)
-commit_and_push() {
-    echo "Warning: commit-and-push is deprecated. Use commit-push-and-monitor instead."
-    commit_push_and_monitor "$1"
-}
-
 # Function to complete work on an issue
 complete_issue() {
     local branch_name=$(git rev-parse --abbrev-ref HEAD)
@@ -152,7 +146,7 @@ complete_issue() {
 }
 
 # Function to prepare commit
-prepare_commit() {
+change_summary() {
     echo "Current changes:"
     echo "---------------"
     git status --short | cat
@@ -186,8 +180,8 @@ case "$1" in
     "start-issue")
         start_issue "$2"
         ;;
-    "prepare-commit")
-        prepare_commit
+    "change-summary")
+        change_summary
         ;;
     "commit-and-push")
         commit_push_and_monitor "$2"
