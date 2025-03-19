@@ -16,37 +16,12 @@ docker run \
   --rm -i mcp-server-formatter
 ```
 
-## Tool
+## Tools
 
-This project provides the following tool for Black code formatting:
+This project provides the following tool for code formatting using Black:
 
 - `format_with_black(project_name)` - Format Python code in a project directory using Black with default settings
 
 ### Parameters Explained
 
 - `project_name`: The basename of the project's root directory.
-
-### Example Usage
-
-To format a project:
-```python
-format_with_black(project_name="my-project")
-```
-
-### Return Value
-
-The tool returns a JSON object with the following structure:
-```json
-{
-  "stdout": "Black's standard output",
-  "stderr": "Black's standard error (if any)",
-  "return_code": 0
-}
-```
-
-If an exception occurs during execution, the return value will be:
-```json
-{
-  "error": "Error message"
-}
-``` 
