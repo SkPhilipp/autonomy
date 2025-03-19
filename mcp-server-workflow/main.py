@@ -10,7 +10,7 @@ from contextlib import redirect_stdout
 mcp = FastMCP("WorkflowMCP")
 
 
-def get_project_dir(project_name=None):
+def get_project_dir(project_name):
     """
     Get the project directory based on project name
 
