@@ -50,12 +50,11 @@ class Workflow:
             cwd=self.working_dir
         )
         
-        # Limit output length to prevent crashes
         output = result.stdout.strip()
-        max_output_length = 50000  # 50KB limit should be reasonable
+        max_output_length = 50000
         if len(output) > max_output_length:
             truncated = output[:max_output_length]
             logger.info(f"Output truncated from {len(output)} to {max_output_length} characters")
             return truncated + "\n... [output truncated]"
-        
+            
         return output
