@@ -40,3 +40,8 @@ Thumbs.db
 *.temp
 .cache/
 .temp/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
