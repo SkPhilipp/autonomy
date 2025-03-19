@@ -2,22 +2,18 @@
 
 When instructed "local work":
 1. Get a summary of current changes using `mcp__change_summary`
-
 2. Commit and push using `mcp__commit_and_push` with a short conventional commit message
 
 When instructed "next issue":
 1. List and select first unblocked issue using `mcp__list_issues`
-
 2. Start work using `mcp__start_issue` with the selected issue number
-
-3. Work on issue:
-   - Read issue and related content
+3. Work on the issue, keep changes focused to only the issue at hand:
    - Implement changes
-   - Test locally
-   - Get a summary of changes using `mcp__change_summary`
-   - Commit and push using `mcp__commit_and_push` with a short conventional commit message
-
-4. Complete issue using `mcp__complete_issue`
+   - Run tests locally
+   - Update documentation
+4. Get a summary of changes using `mcp__change_summary`
+5. Commit and push using `mcp__commit_and_push` with a short conventional commit message
+6. Complete issue using `mcp__complete_issue`
 
 Error Handling:
 - Debug and fix issues as they arise
@@ -25,47 +21,13 @@ Error Handling:
   1. Note blocking issue and solutions tried
   2. Reset to last successful commit
   3. Try new approach
-  4. If stuck 3 times: mark as blocked and move on
-
-Guidelines:
-- No direct `gh` commands
-- Pipe `git` output through `cat`
-- Prioritize by age and priority labels
-- Keep PRs focused
-- Test thoroughly
-- Update docs for changes
+  4. When stuck for too long, stop
 
 # Additional Tools
 
 The following tools are available for direct use:
-- `mcp__add`: Add two numbers
 - `mcp__list_issues`: List open issues sorted by priority and creation date
 - `mcp__start_issue`: Start work on an issue
 - `mcp__change_summary`: Show summary of current changes
 - `mcp__commit_and_push`: Commit, push changes and monitor CI/CD
 - `mcp__complete_issue`: Complete work on an issue
-
-# Capabilities
-
-## Web Browsing
-You are always allowed to browse the web for more information.
-To facilitate this, use the capability script:
-```bash
-capability.sh browse <url>
-```
-
-## Searching
-To search the web, use the capability script:
-```bash
-capability.sh search <query>
-```
-
-## Screenshotting
-To take a screenshot of a webpage, use the capability script:
-```bash
-capability.sh screenshot <url> [output-path]
-```
-- `url`: The URL of the webpage to screenshot
-- `output-path`: (Optional) The path where the screenshot should be saved. Defaults to `screenshot.png`
-
-The screenshot will be taken using Puppeteer in headless mode, capturing the full page content.

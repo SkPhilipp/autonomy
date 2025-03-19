@@ -7,8 +7,8 @@ import re
 import os
 from contextlib import redirect_stdout
 
-# Ensure working directory is set from environment variable
-if not os.getenv('WORKFLOW_DIR'):
+workflow_dir = os.getenv('WORKFLOW_DIR')
+if not workflow_dir:
     raise ValueError("WORKFLOW_DIR environment variable must be set")
 
 mcp = FastMCP("WorkflowMCP")
@@ -16,7 +16,7 @@ mcp = FastMCP("WorkflowMCP")
 @mcp.tool()
 def list_issues() -> str:
     """List open issues sorted by priority and creation date"""
-    workflow_obj = workflow.Workflow(os.getenv('WORKFLOW_DIR'))
+    workflow_obj = workflow.Workflow(workflow_dir)
     issues_json = workflow_obj.run([
         "gh", "issue", "list",
         "--state", "open",
@@ -28,7 +28,7 @@ def list_issues() -> str:
 @mcp.tool()
 def start_issue(issue_number: int) -> str:
     """Start work on an issue"""
-    workflow_obj = workflow.Workflow(os.getenv('WORKFLOW_DIR'))
+    workflow_obj = workflow.Workflow(workflow_dir)
     
     # Get issue details
     issue_json = workflow_obj.run([
@@ -55,7 +55,7 @@ def start_issue(issue_number: int) -> str:
 @mcp.tool()
 def change_summary() -> str:
     """Show summary of current changes"""
-    workflow_obj = workflow.Workflow(os.getenv('WORKFLOW_DIR'))
+    workflow_obj = workflow.Workflow(workflow_dir)
     
     status = workflow_obj.run(["git", "status", "--short"])
     diff = workflow_obj.run(["git", "diff"])
@@ -70,7 +70,7 @@ def change_summary() -> str:
 @mcp.tool()
 def commit_and_push(commit_message: str) -> str:
     """Commit, push changes and monitor CI/CD"""
-    workflow_obj = workflow.Workflow(os.getenv('WORKFLOW_DIR'))
+    workflow_obj = workflow.Workflow(workflow_dir)
     
     # Get branch name
     branch_name = workflow_obj.run(["git", "rev-parse", "--abbrev-ref", "HEAD"])
@@ -108,7 +108,7 @@ def commit_and_push(commit_message: str) -> str:
 @mcp.tool()
 def complete_issue() -> str:
     """Complete work on an issue"""
-    workflow_obj = workflow.Workflow(os.getenv('WORKFLOW_DIR'))
+    workflow_obj = workflow.Workflow(workflow_dir)
     
     # Get branch name
     branch_name = workflow_obj.run(["git", "rev-parse", "--abbrev-ref", "HEAD"])
