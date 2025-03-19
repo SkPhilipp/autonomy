@@ -14,7 +14,7 @@ Add to Cursor via Cursor Settings -> MCP Servers:
 docker run \
   -v ~/.ssh:/root/.ssh:ro
   -v ~/.gitconfig:/etc/gitconfig:ro
-  -v {PROJECT_PATH}:/project
+  -v {PROJECTS_HOME}:/projects
   -e GH_TOKEN={GITHUB_TOKEN}
   --rm -i mcp-server-workflow
 ```
@@ -31,7 +31,7 @@ This project integrates the following Git and GitHub development flow commands a
 
 ### Project Name Parameter
 
-All tools now accept an optional `project_name` parameter. When specified, operations will be performed on the project in the `/project/{project_name}` directory. If no project name is provided, operations will default to the `/project` directory.
+All tools now accept an optional `project_name` parameter. When specified, operations will be performed on the project in the `/projects/{project_name}` directory. If no project name is provided, operations will default to the `/projects` directory.
 
 For example, to list issues for a specific project:
 ```python

@@ -15,7 +15,7 @@ mcp = FastMCP("FormatterMCP")
 def get_project_dir(project_name=None):
     if not project_name:
         raise ValueError("Project name must be specified")
-    return os.path.join("/project", project_name)
+    return os.path.join("/projects", project_name)
 
 
 @mcp.tool()

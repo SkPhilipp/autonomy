@@ -12,7 +12,7 @@ Add to Cursor via Cursor Settings -> MCP Servers:
 
 ```bash
 docker run \
-  -v {PROJECT_PATH}:/project \
+  -v {PROJECTS_HOME}:/projects \
   --rm -i mcp-server-formatter
 ```
 
