@@ -58,11 +58,20 @@ def change_summary() -> str:
     workflow_obj = workflow.Workflow(workflow_dir)
     
     status = workflow_obj.run(["git", "status", "--short"])
-    diff = workflow_obj.run(["git", "diff"])
+    
+    # Use --stat to get a more concise diff summary instead of the full diff
+    # This significantly reduces output size while still providing useful information
+    diff_stat = workflow_obj.run(["git", "diff", "--stat"])
+    
+    # Only get the full diff if explicitly needed, and with a reasonable limit
+    # This is commented out but kept for reference
+    # diff = workflow_obj.run(["git", "diff"])
     
     result = {
         "status": status,
-        "diff": diff
+        "diff_stat": diff_stat,
+        # For backward compatibility, include an empty or limited diff
+        "diff": diff_stat  # Replace with the stat output which is much smaller
     }
     
     return json.dumps(result)
