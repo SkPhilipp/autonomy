@@ -8,7 +8,16 @@ Add to Cursor via Cursor Settings -> MCP Servers:
 
 1. Build the Docker image with `docker build . -t mcp-server-workflow`.
 2. Add new MCP Server
-3. Run the Docker image with `docker run -e GH_TOKEN={GITHUB_PAT} -v {PATH_TO_YOUR_PROJECT}:/project --rm -i mcp-server-workflow`
+3. Run the Docker image with:
+
+```
+docker run \
+  -v ~/.ssh:/root/.ssh:ro
+  -v ~/.gitconfig:/etc/gitconfig:ro
+  -v {PROJECT_PATH}:/project
+  -e GH_TOKEN={GITHUB_TOKEN}
+  --rm -i mcp-server-workflow
+```
 
 ## GitHub Workflow Tools
 
