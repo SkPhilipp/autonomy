@@ -7,9 +7,8 @@ import re
 import os
 from contextlib import redirect_stdout
 
-workflow_dir = os.getenv('WORKFLOW_DIR')
-if not workflow_dir:
-    raise ValueError("WORKFLOW_DIR environment variable must be set")
+# Use fixed project path instead of environment variable
+workflow_dir = "/project"
 
 mcp = FastMCP("WorkflowMCP")
 

@@ -6,21 +6,9 @@ This project is based on the [MCP Python SDK](https://github.com/modelcontextpro
 
 Add to Cursor via Cursor Settings -> MCP Servers:
 
-1. Add new MCP Server
-2. Command `uv --directory /{PATH_TO_REPO}/mcp-server-workflow run --env-file={PATH_TO_YOUR_PROJECT}/.env mcp run main.py`
-
-In the .env file, add the directory on which you wish to make changes via Git:
-
-```
-WORKFLOW_DIR={PATH_TO_YOUR_PROJECT}
-```
-
-Alternatively, run it locally with:
-
-```bash
-source .venv/bin/activate
-mcp run main.py
-```
+1. Build the Docker image with `docker build . -t mcp-server-workflow`.
+2. Add new MCP Server
+3. Run the Docker image with `docker run -e GH_TOKEN={GITHUB_PAT} -v {PATH_TO_YOUR_PROJECT}:/project --rm -i mcp-server-workflow`
 
 ## GitHub Workflow Tools
 
