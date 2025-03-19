@@ -11,9 +11,8 @@ A workflow automation tool for managing GitHub issues and project tasks with int
 
 ## Prerequisites
 
+- Git
 - [GitHub CLI (gh)](https://cli.github.com/manual/installation)
-- Node.js (for screenshot functionality)
-- Lynx (for web browsing)
 
 ## Installation
 
@@ -23,23 +22,7 @@ A workflow automation tool for managing GitHub issues and project tasks with int
    cd autonomy
    ```
 
-2. Install dependencies:
-   ```bash
-   cd scripts
-   npm install
-   ```
-
-3. Authenticate with GitHub:
+2. Authenticate with GitHub:
    ```bash
    gh auth login
    ```
-
-4. Add commands to PATH:
-   ```bash
-   # Add this to your ~/.bashrc or ~/.zshrc
-   export PATH="/path/to/autonomy:$PATH"
-   ```
-   Replace `/path/to/autonomy` with the actual path where you cloned the repository.
-   After adding this line, either:
-   - Start a new terminal session, or
-   - Run `source ~/.bashrc` (or `source ~/.zshrc`) to apply changes immediately
