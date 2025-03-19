@@ -23,8 +23,17 @@ docker run \
 
 This project integrates the following Git and GitHub development flow commands as MCP tools:
 
-- `list_issues()` - List open issues sorted by priority and creation date
-- `start_issue(issue_number)` - Start work on an issue
-- `change_summary()` - Show summary of current changes
-- `commit_and_push(commit_message)` - Commit, push changes and monitor CI/CD
-- `complete_issue()` - Complete work on an issue
+- `list_issues(project_name=None)` - List open issues sorted by priority and creation date
+- `start_issue(issue_number, project_name=None)` - Start work on an issue
+- `change_summary(project_name=None)` - Show summary of current changes
+- `commit_and_push(commit_message, project_name=None)` - Commit, push changes and monitor CI/CD
+- `complete_issue(project_name=None)` - Complete work on an issue
+
+### Project Name Parameter
+
+All tools now accept an optional `project_name` parameter. When specified, operations will be performed on the project in the `/project/{project_name}` directory. If no project name is provided, operations will default to the `/project` directory.
+
+For example, to list issues for a specific project:
+```python
+list_issues(project_name="my-repo")
+```

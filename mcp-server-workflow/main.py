@@ -7,14 +7,22 @@ import re
 import os
 from contextlib import redirect_stdout
 
-# Use fixed project path instead of environment variable
-workflow_dir = "/project"
+# Default project directory if none specified
+DEFAULT_PROJECT_DIR = "/project"
 
 mcp = FastMCP("WorkflowMCP")
 
+def get_project_dir(project_name=None):
+    """Get the project directory based on project name or use default"""
+    if project_name:
+        # If project_name is specified, use it as a subdirectory of /project
+        return os.path.join("/project", project_name)
+    return DEFAULT_PROJECT_DIR
+
 @mcp.tool()
-def list_issues() -> str:
+def list_issues(project_name: str = None) -> str:
     """List open issues sorted by priority and creation date"""
+    workflow_dir = get_project_dir(project_name)
     workflow_obj = workflow.Workflow(workflow_dir)
     issues_json = workflow_obj.run([
         "gh", "issue", "list",
@@ -25,8 +33,9 @@ def list_issues() -> str:
     return issues_json
 
 @mcp.tool()
-def start_issue(issue_number: int) -> str:
+def start_issue(issue_number: int, project_name: str = None) -> str:
     """Start work on an issue"""
+    workflow_dir = get_project_dir(project_name)
     workflow_obj = workflow.Workflow(workflow_dir)
     
     # Get issue details
@@ -52,8 +61,9 @@ def start_issue(issue_number: int) -> str:
     return issue_json
 
 @mcp.tool()
-def change_summary() -> str:
+def change_summary(project_name: str = None) -> str:
     """Show summary of current changes"""
+    workflow_dir = get_project_dir(project_name)
     workflow_obj = workflow.Workflow(workflow_dir)
     
     status = workflow_obj.run(["git", "status", "--short"])
@@ -70,8 +80,9 @@ def change_summary() -> str:
     return json.dumps(result)
 
 @mcp.tool()
-def commit_and_push(commit_message: str) -> str:
+def commit_and_push(commit_message: str, project_name: str = None) -> str:
     """Commit, push changes and monitor CI/CD"""
+    workflow_dir = get_project_dir(project_name)
     workflow_obj = workflow.Workflow(workflow_dir)
     
     # Get branch name
@@ -108,8 +119,9 @@ def commit_and_push(commit_message: str) -> str:
     return json.dumps(result)
 
 @mcp.tool()
-def complete_issue() -> str:
+def complete_issue(project_name: str = None) -> str:
     """Complete work on an issue"""
+    workflow_dir = get_project_dir(project_name)
     workflow_obj = workflow.Workflow(workflow_dir)
     
     # Get branch name
