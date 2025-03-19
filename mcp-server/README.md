@@ -19,3 +19,5 @@ docker run --rm -i mcp-server
 This project provides the following tools:
 
 - `add(a, b)` - Add two numbers
+- `format_with_black(project_name, target_path=None, line_length=88, skip_string_normalization=False, verbose=False)` - Format Python code in a directory using Black
+- `check_with_black(project_name, target_path=None, line_length=88, skip_string_normalization=False)` - Check Python code in a directory using Black without modifying files
