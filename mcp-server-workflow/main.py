@@ -143,8 +143,8 @@ def complete_issue() -> str:
         pass
     
     workflow_obj.run(["gh", "pr", "merge", str(pr_number), "--merge"])
-    workflow_obj.run(["git", "pull"])
     workflow_obj.run(["git", "checkout", "master"])
+    workflow_obj.run(["git", "pull"])
     
     result = {
         "branch": branch_name,
