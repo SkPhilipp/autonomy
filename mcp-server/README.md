@@ -8,7 +8,7 @@ Add to Cursor via Cursor Settings -> MCP Servers:
 
 1. Build the Docker image with `docker build . -t mcp-server`.
 2. Add new MCP Server
-3. Run the Docker image with:
+3. Add the Docker image to your AI tooling as a command MCP server:
 
 ```bash
 docker run --rm -i mcp-server
