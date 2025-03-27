@@ -37,3 +37,23 @@ For example, to list issues for a specific project:
 ```python
 list_issues(project_name="my-repo")
 ```
+
+## Example Rules
+
+```
+When instructed "auto push":
+1. Get a summary of current changes using `mcp__change_summary`
+2. Commit and push using `mcp__commit_and_push` with a short conventional commit message
+
+When instructed "next issue":
+1. Obtain the project_name using `basename $PWD`
+2. List and select first unblocked issue using `mcp__list_issues`
+3. Start work using `mcp__start_issue` with the selected issue number
+4. Work on the issue, keep changes focused to only the issue at hand:
+   - Implement changes
+   - Run tests locally
+   - Update documentation
+5. Get a summary of changes using `mcp__change_summary`
+6. Commit and push using `mcp__commit_and_push` with a short conventional commit message
+7. Complete issue using `mcp__complete_issue`
+```
