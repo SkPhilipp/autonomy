@@ -54,7 +54,13 @@ class Workflow:
             cwd=self.working_dir,
         )
 
-        output = result.stdout.strip()
+        output_stdout = result.stdout.strip()
+        output_stderr = result.stderr.strip()
+
+        logger.info(f"Output: {output_stdout}")
+        logger.info(f"Error: {output_stderr}")
+
+        output = output_stdout + "\n" + output_stderr
         max_output_length = 50000
         if len(output) > max_output_length:
             truncated = output[:max_output_length]
