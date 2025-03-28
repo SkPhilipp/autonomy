@@ -1,0 +1,9 @@
+[project]
+name = "mcp-server-browse"
+version = "0.1.0"
+description = "MCP server with web browsing functionality using Lynx"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=1.4.0",
+]
