@@ -1,0 +1,10 @@
+[project]
+name = "mcp-server-workflow"
+version = "0.1.0"
+description = "MCP server with integrated Git and GitHub issue processing functionality"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=1.4.0",
+    "pygithub>=2.1.1",
+]
