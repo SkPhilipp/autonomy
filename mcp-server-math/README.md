@@ -19,3 +19,4 @@ docker run --rm -i mcp-server-math
 This project provides the following tools:
 
 - `add(a, b)` - Add two numbers
+- `subtract(a, b)` - Subtract b from a
