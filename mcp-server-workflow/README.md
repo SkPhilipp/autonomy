@@ -2,6 +2,8 @@
 
 This project is based on the [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) and integrates GitHub workflow functionality with MCP. It provides a set of tools for managing GitHub issues and pull requests directly from Python.
 
+> **Warning**: This project only works with repositories that use SSH remotes (git@github.com). HTTPS remotes are not supported.
+
 ## Installation
 
 Add to Cursor via Cursor Settings -> MCP Servers:
