@@ -63,7 +63,7 @@ class Workflow:
             logger.error(f"Command failed with exit code {result.returncode}")
             raise subprocess.CalledProcessError(result.returncode, cmd, output_stdout, output_stderr)
 
-        output = output_stdout + "\n" + output_stderr
+        output = (output_stdout + "\n" + output_stderr).strip()
         max_output_length = 50000
         if len(output) > max_output_length:
             truncated = output[:max_output_length]
