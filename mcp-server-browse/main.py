@@ -1,5 +1,4 @@
 from mcp.server.fastmcp import FastMCP
-import json
 import subprocess
 import logging
 import shlex
@@ -30,15 +29,9 @@ def web_search(search_term: str) -> str:
             stderr=subprocess.PIPE,
             text=True,
         )
-        return json.dumps(
-            {
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-                "return_code": result.returncode,
-            }
-        )
+        return f"{result.stdout}\n{result.stderr}"
     except Exception as e:
-        return json.dumps({"error": str(e)})
+        return f"Error: {str(e)}"
 
 @mcp.tool()
 def browse_url(url: str) -> str:
@@ -59,12 +52,6 @@ def browse_url(url: str) -> str:
             stderr=subprocess.PIPE,
             text=True,
         )
-        return json.dumps(
-            {
-                "stdout": result.stdout,
-                "stderr": result.stderr,
-                "return_code": result.returncode,
-            }
-        )
+        return f"{result.stdout}\n{result.stderr}"
     except Exception as e:
-        return json.dumps({"error": str(e)})
+        return f"Error: {str(e)}"
