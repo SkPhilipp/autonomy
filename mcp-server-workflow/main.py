@@ -121,14 +121,12 @@ def commit_and_push(commit_message: str, project_name: str) -> str:
 
     # Commit and push
     workflow_obj.run(["git", "add", "."])
-    workflow_obj.run(["git", "commit", "-m", commit_message])
+    workflow_obj.run(["git", "commit", "-m", commit_message], check=False)
     workflow_obj.run(["git", "push", "-u", "origin", branch_name])
 
     # Try to get PR number and monitor CI/CD
     try:
-        pr_json = workflow_obj.run(
-            ["gh", "pr", "view", "--json", "number"], silent=True
-        )
+        pr_json = workflow_obj.run(["gh", "pr", "view", "--json", "number"])
         pr_data = json.loads(pr_json)
         pr_number = pr_data.get("number")
 
@@ -167,9 +165,7 @@ def complete_issue(project_name: str) -> str:
 
     # Get PR number or create PR
     try:
-        pr_json = workflow_obj.run(
-            ["gh", "pr", "view", "--json", "number"], silent=True
-        )
+        pr_json = workflow_obj.run(["gh", "pr", "view", "--json", "number"])
         pr_data = json.loads(pr_json)
         pr_number = pr_data.get("number")
     except:

@@ -26,7 +26,7 @@ class Workflow:
             sys.exit(1)
 
         try:
-            self.run(["gh", "auth", "status"], silent=True)
+            self.run(["gh", "auth", "status"])
         except subprocess.CalledProcessError:
             logger.error("Please authenticate with GitHub first using: gh auth login")
             sys.exit(1)
@@ -40,17 +40,16 @@ class Workflow:
             == 0
         )
 
-    def run(self, cmd, silent=False):
+    def run(self, cmd, check=True):
         """Run a command and return its output"""
-        if not silent:
-            logger.info(f"Running: {' '.join(cmd)}")
+        logger.info(f"Running: {' '.join(cmd)}")
 
         result = subprocess.run(
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            check=True,
+            check=check,
             cwd=self.working_dir,
         )
 
