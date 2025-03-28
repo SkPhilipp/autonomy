@@ -49,15 +49,19 @@ class Workflow:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            check=check,
+            check=False,
             cwd=self.working_dir,
         )
-
+        
         output_stdout = result.stdout.strip()
         output_stderr = result.stderr.strip()
-
+        
         logger.info(f"Output: {output_stdout}")
         logger.info(f"Error: {output_stderr}")
+
+        if check and result.returncode != 0:
+            logger.error(f"Command failed with exit code {result.returncode}")
+            raise subprocess.CalledProcessError(result.returncode, cmd, output_stdout, output_stderr)
 
         output = output_stdout + "\n" + output_stderr
         max_output_length = 50000
