@@ -1,0 +1,9 @@
+[project]
+name = "mcp-server-development"
+version = "0.1.0"
+description = "MCP server with development tools for testing, packaging, linting, and dependency management"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=1.4.0",
+]

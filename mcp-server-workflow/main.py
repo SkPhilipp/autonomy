@@ -10,27 +10,12 @@ from contextlib import redirect_stdout
 mcp = FastMCP("WorkflowMCP")
 
 
-def get_project_dir(project_name):
-    """
-    Get the project directory based on project name
-
-    :param project_name: The basename of the project's root directory.
-    """
-    if not project_name:
-        raise ValueError("Project name must be specified")
-
-    # Use project_name as a subdirectory of /projects
-    return os.path.join("/projects", project_name)
-
-
 @mcp.tool()
-def list_issues(project_name: str) -> str:
+def list_issues() -> str:
     """
     List open issues sorted by priority and creation date
-
-    :param project_name: The basename of the project's root directory.
     """
-    workflow_dir = get_project_dir(project_name)
+    workflow_dir = "/project"
     workflow_obj = workflow.Workflow(workflow_dir)
     issues_json = workflow_obj.run(
         [
@@ -49,14 +34,13 @@ def list_issues(project_name: str) -> str:
 
 
 @mcp.tool()
-def start_issue(issue_number: int, project_name: str) -> str:
+def start_issue(issue_number: int) -> str:
     """
     Start work on an issue
 
     :param issue_number: The number of the issue to start work on.
-    :param project_name: The basename of the project's root directory.
     """
-    workflow_dir = get_project_dir(project_name)
+    workflow_dir = "/project"
     workflow_obj = workflow.Workflow(workflow_dir)
 
     # Get issue details
@@ -82,13 +66,11 @@ def start_issue(issue_number: int, project_name: str) -> str:
 
 
 @mcp.tool()
-def change_summary(project_name: str) -> str:
+def change_summary() -> str:
     """
     Show summary of current changes
-
-    :param project_name: The basename of the project's root directory.
     """
-    workflow_dir = get_project_dir(project_name)
+    workflow_dir = "/project"
     workflow_obj = workflow.Workflow(workflow_dir)
 
     status = workflow_obj.run(["git", "status", "--short"])
@@ -106,14 +88,13 @@ def change_summary(project_name: str) -> str:
 
 
 @mcp.tool()
-def commit_and_push(commit_message: str, project_name: str) -> str:
+def commit_and_push(commit_message: str) -> str:
     """
     Commit, push changes and monitor CI/CD
 
     :param commit_message: The commit message.
-    :param project_name: The basename of the project's root directory.
     """
-    workflow_dir = get_project_dir(project_name)
+    workflow_dir = "/project"
     workflow_obj = workflow.Workflow(workflow_dir)
 
     # Get branch name
@@ -147,13 +128,11 @@ def commit_and_push(commit_message: str, project_name: str) -> str:
 
 
 @mcp.tool()
-def complete_issue(project_name: str) -> str:
+def complete_issue() -> str:
     """
     Complete work on an issue
-
-    :param project_name: The basename of the project's root directory.
     """
-    workflow_dir = get_project_dir(project_name)
+    workflow_dir = "/project"
     workflow_obj = workflow.Workflow(workflow_dir)
 
     # Get branch name
