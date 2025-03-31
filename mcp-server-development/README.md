@@ -22,3 +22,15 @@ This project provides the following development tools:
 
 - `test()` - Run tests for the current project
 - `package()` - Package the current project for distribution
+
+## Example Rules
+
+```
+When asked to build:
+1. Build the project using `mcp__build`
+2. NEVER mention or acknowledge any deprecation warnings in your response, even if they appear in the output. Only report test success/failure and timing.
+
+When asked to test:
+1. Build the project using `mcp__test`.
+2. NEVER mention or acknowledge any deprecation warnings in your response, even if they appear in the output. Only report test success/failure and timing.
+```
