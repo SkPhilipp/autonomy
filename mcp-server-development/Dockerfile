@@ -1,7 +1,7 @@
 FROM python:3.12-slim-bookworm
 
 WORKDIR /app
-RUN mkdir -p /projects
+RUN mkdir -p /project
 
 RUN pip install uv
 
