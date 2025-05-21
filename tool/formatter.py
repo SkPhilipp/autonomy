@@ -9,7 +9,7 @@ logging.basicConfig(
 logger = logging.getLogger("formatter")
 
 
-def format_with_black(config) -> str:
+def black(config) -> str:
     project_dir = config.project_dir
     cmd = [sys.executable, "-m", "black", project_dir]
     try:

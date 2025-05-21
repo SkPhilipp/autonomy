@@ -62,7 +62,7 @@ class Workflow:
         return output
 
 
-def list_issues(config) -> str:
+def list(config) -> str:
     workflow_dir = config.project_dir
     workflow_obj = Workflow(workflow_dir)
     issues_json = workflow_obj.run(
@@ -81,7 +81,7 @@ def list_issues(config) -> str:
     return issues_json
 
 
-def start_issue(issue_number: int, config) -> str:
+def start(issue_number: int, config) -> str:
     workflow_dir = config.project_dir
     workflow_obj = Workflow(workflow_dir)
     issue_json = workflow_obj.run(
@@ -111,7 +111,7 @@ def change_summary(config) -> str:
     return json.dumps(result)
 
 
-def commit_and_push(commit_message: str, config) -> str:
+def commit(commit_message: str, config) -> str:
     workflow_dir = config.project_dir
     workflow_obj = Workflow(workflow_dir)
     branch_name = workflow_obj.run(["git", "rev-parse", "--abbrev-ref", "HEAD"])
@@ -134,7 +134,7 @@ def commit_and_push(commit_message: str, config) -> str:
     return json.dumps(result)
 
 
-def complete_issue(config) -> str:
+def complete(config) -> str:
     workflow_dir = config.project_dir
     workflow_obj = Workflow(workflow_dir)
     branch_name = workflow_obj.run(["git", "rev-parse", "--abbrev-ref", "HEAD"])

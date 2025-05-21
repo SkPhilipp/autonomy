@@ -14,43 +14,43 @@ mcp = FastMCP("MCP")
 @mcp.tool()
 def jira__get_base_issue() -> dict:
     """Retrieve the base JIRA issue configuration."""
-    return jira_tools.get_base_jira_issue(config)
+    return jira_tools.get_base_issue(config)
 
 
 @mcp.tool()
 def jira__create_issue_from_base(title: str, description: str) -> dict:
     """Create a new JIRA issue with the given title and description."""
-    return jira_tools.create_jira_issue_from_base(title, description, config)
+    return jira_tools.create_issue_from_base(title, description, config)
 
 
 @mcp.tool()
 def browse__search(term: str) -> str:
     """Search the web for the given term."""
-    return browse_tools.web_search(term)
+    return browse_tools.search(term)
 
 
 @mcp.tool()
 def browse__fetch(url: str) -> str:
     """Fetch and return the contents of a URL."""
-    return browse_tools.browse_url(url)
+    return browse_tools.fetch(url)
 
 
 @mcp.tool()
 def formatter__black() -> str:
     """Format the specified project using Black."""
-    return formatter_tools.format_with_black(config)
+    return formatter_tools.black(config)
 
 
 @mcp.tool()
 def workflow__list() -> str:
     """List all current issues."""
-    return workflow_tools.list_issues(config)
+    return workflow_tools.list(config)
 
 
 @mcp.tool()
 def workflow__start(issue_number: int) -> str:
     """Start work on the specified issue."""
-    return workflow_tools.start_issue(issue_number, config)
+    return workflow_tools.start(issue_number, config)
 
 
 @mcp.tool()
@@ -62,13 +62,13 @@ def workflow__change_summary() -> str:
 @mcp.tool()
 def workflow__commit(commit_message: str) -> str:
     """Commit changes and push to the repository."""
-    return workflow_tools.commit_and_push(commit_message, config)
+    return workflow_tools.commit(commit_message, config)
 
 
 @mcp.tool()
 def workflow__complete() -> str:
     """Mark the current issue as complete."""
-    return workflow_tools.complete_issue(config)
+    return workflow_tools.complete(config)
 
 
 if __name__ == "__main__":
