@@ -3,25 +3,12 @@ from core.config import load_config
 config = load_config()
 
 from mcp.server.fastmcp import FastMCP
-import tool.math as math_tools
 import tool.jira as jira_tools
 import tool.browse as browse_tools
 import tool.formatter as formatter_tools
 import tool.workflow as workflow_tools
 
 mcp = FastMCP("MCP")
-
-
-@mcp.tool()
-def math__sum(a: int, b: int) -> int:
-    """Add two numbers."""
-    return math_tools.add(a, b)
-
-
-@mcp.tool()
-def math__sub(a: int, b: int) -> int:
-    """Subtract one number from another."""
-    return math_tools.subtract(a, b)
 
 
 @mcp.tool()
