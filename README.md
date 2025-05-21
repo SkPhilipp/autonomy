@@ -24,15 +24,15 @@ uv run mcp run main.py
 ```json
 {
     "mcpServers": {
-        "mcp-server-all": {
-        "command": "/.../autonomy/.venv/bin/python3",
-        "args": [
-            "/.../autonomy/main.py",
-            "--env",
-            "/.../.env",
-            "--project-path",
-            "/.../project/"
-        ]
+        "tools": {
+            "command": "/.../autonomy/.venv/bin/python3",
+            "args": [
+                "/.../autonomy/main.py",
+                "--env",
+                "/.../.env",
+                "--project-path",
+                "/.../project/"
+            ]
         }
     }
 }
