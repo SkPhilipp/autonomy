@@ -5,4 +5,4 @@ def add(a: int, b: int) -> int:
 
 def subtract(a: int, b: int) -> int:
     """Subtract b from a"""
-    return a - b 
+    return a - b

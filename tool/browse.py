@@ -7,6 +7,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("browser")
 
+
 def web_search(search_term: str) -> str:
     search_url = f"https://duckduckgo.com/html/?q={search_term}"
     cmd = ["lynx", "-dump", "-nolist", search_url]
@@ -21,6 +22,7 @@ def web_search(search_term: str) -> str:
         return f"{result.stdout}\n{result.stderr}"
     except Exception as e:
         return f"Error: {str(e)}"
+
 
 def browse_url(url: str) -> str:
     url = shlex.quote(url)

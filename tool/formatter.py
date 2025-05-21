@@ -1,6 +1,6 @@
-import json
-import os
+import sys
 import subprocess
+import json
 import logging
 
 logging.basicConfig(
@@ -8,14 +8,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger("formatter")
 
-def get_project_dir(project_name):
-    if not project_name:
-        raise ValueError("Project name must be specified")
-    return os.path.join("/projects", project_name)
 
-def format_with_black(project_name: str) -> str:
-    project_dir = get_project_dir(project_name)
-    cmd = ["black", project_dir]
+def format_with_black(config) -> str:
+    project_dir = config.project_dir
+    cmd = [sys.executable, "-m", "black", project_dir]
     try:
         logger.info(f"Running: {' '.join(cmd)}")
         result = subprocess.run(
