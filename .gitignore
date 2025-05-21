@@ -1,4 +1,5 @@
 .cursor/
+.coverage
 
 # Dependencies
 node_modules/
