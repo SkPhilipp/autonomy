@@ -12,12 +12,12 @@ import tool.workflow as workflow_tools
 mcp = FastMCP("MCP")
 
 @mcp.tool()
-def math__add(a: int, b: int) -> int:
+def math__sum(a: int, b: int) -> int:
     """Add two numbers."""
     return math_tools.add(a, b)
 
 @mcp.tool()
-def math__subtract(a: int, b: int) -> int:
+def math__sub(a: int, b: int) -> int:
     """Subtract one number from another."""
     return math_tools.subtract(a, b)
 
@@ -32,27 +32,27 @@ def jira__create_issue_from_base(title: str, description: str) -> dict:
     return jira_tools.create_jira_issue_from_base(title, description, config)
 
 @mcp.tool()
-def browse__web_search(term: str) -> str:
+def browse__search(term: str) -> str:
     """Search the web for the given term."""
     return browse_tools.web_search(term, config)
 
 @mcp.tool()
-def browse__browse_url(url: str) -> str:
+def browse__fetch(url: str) -> str:
     """Fetch and return the contents of a URL."""
     return browse_tools.browse_url(url, config)
 
 @mcp.tool()
-def formatter__format_with_black(project_name: str) -> str:
+def formatter__black(project_name: str) -> str:
     """Format the specified project using Black."""
     return formatter_tools.format_with_black(project_name, config)
 
 @mcp.tool()
-def workflow__list_issues() -> str:
+def workflow__list() -> str:
     """List all current issues."""
     return workflow_tools.list_issues(config)
 
 @mcp.tool()
-def workflow__start_issue(issue_number: int) -> str:
+def workflow__start(issue_number: int) -> str:
     """Start work on the specified issue."""
     return workflow_tools.start_issue(issue_number, config)
 
@@ -62,12 +62,12 @@ def workflow__change_summary() -> str:
     return workflow_tools.change_summary(config)
 
 @mcp.tool()
-def workflow__commit_and_push(commit_message: str) -> str:
+def workflow__commit(commit_message: str) -> str:
     """Commit changes and push to the repository."""
     return workflow_tools.commit_and_push(commit_message, config)
 
 @mcp.tool()
-def workflow__complete_issue() -> str:
+def workflow__complete() -> str:
     """Mark the current issue as complete."""
     return workflow_tools.complete_issue(config)
 

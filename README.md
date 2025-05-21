@@ -25,13 +25,13 @@ uv run mcp run main.py
 {
     "mcpServers": {
         "mcp-server-all": {
-        "command": "/(...)/autonomy/.venv/bin/python3",
+        "command": "/.../autonomy/.venv/bin/python3",
         "args": [
-            "/(...)/autonomy/main.py",
+            "/.../autonomy/main.py",
             "--env",
-            "/(...)/Projects/autonomy/.env",
+            "/.../.env",
             "--project-path",
-            "/(...)/Projects/autonomy/"
+            "/.../project/"
         ]
         }
     }
