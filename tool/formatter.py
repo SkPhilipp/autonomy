@@ -1,4 +1,3 @@
-from mcp.server.fastmcp import FastMCP
 import json
 import os
 import subprocess
@@ -9,22 +8,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger("formatter")
 
-mcp = FastMCP("FormatterMCP")
-
-
 def get_project_dir(project_name):
     if not project_name:
         raise ValueError("Project name must be specified")
     return os.path.join("/projects", project_name)
 
-
-@mcp.tool()
 def format_with_black(project_name: str) -> str:
-    """
-    Format Python code using Black
-
-    :param project_name: The basename of the project's root directory.
-    """
     project_dir = get_project_dir(project_name)
     cmd = ["black", project_dir]
     try:

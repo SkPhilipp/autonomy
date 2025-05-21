@@ -1,8 +1,39 @@
-# Autonomy
+# MCP Server (Merged)
 
-Aggregate project for custom [MCP Servers](https://modelcontextprotocol.io/).
+This project merges all MCP (Model Context Protocol) servers into a single server, providing a unified set of tools for AI assistants.
 
-## Building
+## Structure
+- `main.py`: Entrypoint that registers all tools.
+- `tool/`: Contains one file per tool group.
+- `pyproject.toml`: Combined dependencies for all tools
 
-Build all the docker images as per each sub-project's README.md.
+## Build
 
+```
+uv sync
+```
+
+## Run
+
+```
+uv run mcp run main.py
+```
+
+## Usage in Cursor
+
+```json
+{
+    "mcpServers": {
+        "mcp-server-all": {
+        "command": "/(...)/autonomy/.venv/bin/python3",
+        "args": [
+            "/(...)/autonomy/main.py",
+            "--env",
+            "/(...)/Projects/autonomy/.env",
+            "--project-path",
+            "/(...)/Projects/autonomy/"
+        ]
+        }
+    }
+}
+```

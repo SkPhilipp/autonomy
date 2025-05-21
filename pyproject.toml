@@ -1,0 +1,13 @@
+[project]
+name = "mcp-server-all"
+version = "0.1.0"
+description = "Merged MCP server with all personal tools."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=1.8.1",
+    "atlassian-python-api>=4.0.4",
+    "pygithub>=2.1.1",
+    "black>=24.2.0",
+    "python-dotenv==1.1.0"
+]
