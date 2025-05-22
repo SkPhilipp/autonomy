@@ -1,6 +1,7 @@
 .cursor/
 .coverage
 .mypy_cache/
+.coverage.json
 
 # Dependencies
 node_modules/

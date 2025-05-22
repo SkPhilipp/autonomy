@@ -12,8 +12,10 @@ logger = logging.getLogger("workflow")
 
 
 class Workflow:
-    def __init__(self, working_dir):
+    def __init__(self, working_dir, runner=subprocess.run, which=subprocess.call):
         self.working_dir = working_dir
+        self._runner = runner
+        self._which = which
         if not self._command_exists("gh"):
             logger.error("GitHub CLI (gh) is not installed. Please install it first:")
             logger.error("https://cli.github.com/manual/installation")
@@ -26,15 +28,13 @@ class Workflow:
 
     def _command_exists(self, cmd):
         return (
-            subprocess.call(
-                ["which", cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE
-            )
+            self._which(["which", cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             == 0
         )
 
     def run(self, cmd, check=True):
         logger.info(f"Running: {' '.join(cmd)}")
-        result = subprocess.run(
+        result = self._runner(
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

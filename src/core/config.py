@@ -49,9 +49,9 @@ class Config:
         )
 
 
-def load_config() -> Config:
+def load_config(argv=None) -> Config:
     parser = argparse.ArgumentParser()
     parser.add_argument("--env", type=str, nargs="*", help="Path(s) to .env file(s)")
     parser.add_argument("--project-path", type=str, help="Path to project root")
-    args = parser.parse_args()
+    args = parser.parse_args(argv) if argv is not None else parser.parse_args()
     return Config.from_env(args)

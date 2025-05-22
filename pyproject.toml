@@ -1,5 +1,5 @@
 [project]
-name = "mcp-server-all"
+name = "src"
 version = "0.1.0"
 description = "Merged MCP server with all personal tools."
 readme = "README.md"
@@ -14,3 +14,6 @@ dependencies = [
     "pytest-cov==6.1.1",
     "mypy==1.15.0"
 ]
+
+[tool.mypy]
+mypy_path = "src"

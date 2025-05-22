@@ -8,12 +8,16 @@ logging.basicConfig(
 logger = logging.getLogger("browser")
 
 
-def search(term: str) -> str:
+def _run_command(cmd, **kwargs):
+    return subprocess.run(cmd, **kwargs)
+
+
+def search(term: str, runner=_run_command) -> str:
     search_url = f"https://duckduckgo.com/html/?q={term}"
     cmd = ["lynx", "-dump", "-nolist", search_url]
     try:
         logger.info(f"Searching web for: {term}")
-        result = subprocess.run(
+        result = runner(
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -26,12 +30,12 @@ def search(term: str) -> str:
         return f"Error: {str(e)}"
 
 
-def fetch(url: str) -> str:
+def fetch(url: str, runner=_run_command) -> str:
     url = shlex.quote(url)
     cmd = ["lynx", "-dump", "-nolist", url]
     try:
         logger.info(f"Browsing URL: {url}")
-        result = subprocess.run(
+        result = runner(
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

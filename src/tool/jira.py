@@ -18,8 +18,8 @@ def get_required_fields(jira, project_key, issue_type_id):
     ]
 
 
-def get_base_issue(config) -> dict:
-    jira = get_jira(config)
+def get_base_issue(config, jira_factory=get_jira) -> dict:
+    jira = jira_factory(config)
     issue = jira.issue(config.jira_base_issue)
     return {
         "title": issue["fields"]["summary"],
@@ -27,8 +27,10 @@ def get_base_issue(config) -> dict:
     }
 
 
-def create_issue_from_base(title: str, description: str, config) -> dict:
-    jira = get_jira(config)
+def create_issue_from_base(
+    title: str, description: str, config, jira_factory=get_jira
+) -> dict:
+    jira = jira_factory(config)
     base_issue = jira.issue(config.jira_base_issue)
     project_key = base_issue["fields"]["project"]["key"]
     issue_type_id = base_issue["fields"]["issuetype"]["id"]

@@ -9,12 +9,16 @@ logging.basicConfig(
 logger = logging.getLogger("formatter")
 
 
-def black(config) -> str:
+def _run_command(cmd, **kwargs):
+    return subprocess.run(cmd, **kwargs)
+
+
+def black(config, runner=_run_command) -> str:
     project_dir = config.project_dir
     cmd = [sys.executable, "-m", "black", project_dir]
     try:
         logger.info(f"Running: {' '.join(cmd)}")
-        result = subprocess.run(
+        result = runner(
             cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
