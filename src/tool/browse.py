@@ -40,6 +40,8 @@ def fetch(url: str, runner=_run_command) -> str:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         return f"{result.stdout}\n{result.stderr}"
     except Exception as e:
