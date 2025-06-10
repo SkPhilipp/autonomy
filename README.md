@@ -3,8 +3,8 @@
 This project merges all MCP (Model Context Protocol) servers into a single server, providing a unified set of tools for AI assistants.
 
 ## Structure
-- `main.py`: Entrypoint that registers all tools.
-- `tool/`: Contains one file per tool group.
+- `launch.sh`: Entrypoint that registers all tools.
+- `src/`: Contains one file per tool group.
 - `pyproject.toml`: Combined dependencies for all tools
 
 ## Build
@@ -25,9 +25,9 @@ uv run mcp run main.py
 {
     "mcpServers": {
         "tools": {
-            "command": "/.../autonomy/.venv/bin/python3",
+            "command": "/.../autonomy/launch.sh",
             "args": [
-                "/.../autonomy/main.py",
+                "browse|jira|workflow",
                 "--env",
                 "/.../.env",
                 "--project-path",

@@ -58,3 +58,74 @@ def create_issue_from_base(
         }
     except Exception as e:
         return {"success": False, "error": f"Failed to create issue: {str(e)}"}
+
+
+def get_epic_stories(epic_key: str, config, jira_factory=get_jira) -> dict:
+    """Retrieve all Issues in an Epic."""
+    jira = jira_factory(config)
+    try:
+        # Search for all issues that belong to this epic
+        jql = f'"Epic Link" = {epic_key}'
+        issues = jira.jql(jql)
+
+        stories = []
+        for issue in issues.get("issues", []):
+            stories.append(
+                {
+                    "key": issue["key"],
+                    "title": issue["fields"]["summary"],
+                    "status": issue["fields"]["status"]["name"],
+                    "issue_type": issue["fields"]["issuetype"]["name"],
+                }
+            )
+
+        return {
+            "success": True,
+            "epic_key": epic_key,
+            "total_issues": len(stories),
+            "stories": stories,
+        }
+    except Exception as e:
+        return {"success": False, "error": f"Failed to retrieve epic stories: {str(e)}"}
+
+
+def get_story_content(story_key: str, config, jira_factory=get_jira) -> dict:
+    """Retrieve the description, title and comments for a story."""
+    jira = jira_factory(config)
+    try:
+        issue = jira.issue(story_key)
+
+        comment_list = []
+        try:
+            # Attempt to get comments
+            comments_data = jira.issue_get_comments(story_key)
+            for comment in comments_data.get("comments", []):
+                comment_list.append(
+                    {
+                        "author": comment["author"]["displayName"],
+                        "created": comment["created"],
+                        "body": comment["body"],
+                    }
+                )
+        except AttributeError:
+            # If comment retrieval fails, proceed without them.
+            pass
+
+        return {
+            "success": True,
+            "key": story_key,
+            "title": issue["fields"]["summary"],
+            "description": issue["fields"]["description"] or "",
+            "status": issue["fields"]["status"]["name"],
+            "issue_type": issue["fields"]["issuetype"]["name"],
+            "comments": comment_list,
+        }
+    except Exception as e:
+        import traceback
+
+        error_details = traceback.format_exc()
+        return {
+            "success": False,
+            "error": f"Failed to retrieve story content: {str(e)}",
+            "details": error_details,
+        }

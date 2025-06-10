@@ -1,7 +1,5 @@
 from core.config import load_config
 from mcp.server.fastmcp import FastMCP
-import tool.jira as jira_tools
-import tool.browse as browse_tools
 import tool.formatter as formatter_tools
 import tool.workflow as workflow_tools
 
@@ -9,27 +7,7 @@ import tool.workflow as workflow_tools
 def setup_mcp(config=None):
     if config is None:
         config = load_config()
-    mcp = FastMCP("MCP")
-
-    @mcp.tool()
-    def jira__get_base_issue() -> dict:
-        """Retrieve the base JIRA issue configuration."""
-        return jira_tools.get_base_issue(config)
-
-    @mcp.tool()
-    def jira__create_issue_from_base(title: str, description: str) -> dict:
-        """Create a new JIRA issue with the given title and description."""
-        return jira_tools.create_issue_from_base(title, description, config)
-
-    @mcp.tool()
-    def browse__search(term: str) -> str:
-        """Search the web for the given term."""
-        return browse_tools.search(term)
-
-    @mcp.tool()
-    def browse__fetch(url: str) -> str:
-        """Fetch and return the contents of a URL."""
-        return browse_tools.fetch(url)
+    mcp = FastMCP("WorkflowMCP")
 
     @mcp.tool()
     def formatter__black() -> str:
